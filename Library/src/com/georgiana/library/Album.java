@@ -17,7 +17,7 @@ public class Album extends Book {
     }
 
     public String toString(){
-        return String.format("Name: %-10s, number of pages: %-4d, category: %-5s, type: %35s",getName(),getPages(),
+        return String.format("Name: %-10s, number of pages: %-4d, category: %-5s, type: %-5s",getName(),getPages(),
                 getCategory(), paperQuality);
     }
 }

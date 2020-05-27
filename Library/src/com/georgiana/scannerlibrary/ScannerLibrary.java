@@ -43,7 +43,7 @@ public class ScannerLibrary {
                     removeBookFromList();
                     break;
                 case 3:
-                    displayAllBooks();
+                    Book.displayAllBooks(books);
                     break;
                 case 4:
                     exit();
@@ -79,10 +79,10 @@ public class ScannerLibrary {
         do{
             category = sc.next();
             if(category.equalsIgnoreCase("novel")){
-                addNovel(name, pages, category);
+                validateNovel(name, pages, category);
                 cError = false;
             } else if(category.equalsIgnoreCase("album")){
-                addAlbum(name, pages,category);
+                validateAlbum(name, pages,category);
                 cError = false;
             } else{
                 System.out.println("Error insert novel or album!");
@@ -99,16 +99,16 @@ public class ScannerLibrary {
      * @param pages
      * @param category
      */
-    private void addNovel(String name, int pages, String category) {
+    private void validateNovel(String name, int pages, String category) {
         boolean bError = true;
         do{
             System.out.println("Insert book type: mystery, sf, fantasy, western");
             String type = sc.next();
             if (type.equalsIgnoreCase("mystery") || type.equalsIgnoreCase("sf") ||
                     type.equalsIgnoreCase("fantasy") || type.equalsIgnoreCase("western")) {
-                Book novel = new Novel(name, pages, category, type);
-                System.out.println("Your book is in Library!\n" + novel);
-                books.add(novel);
+                //add the novel in the list
+                //the method is called from Book class
+                Book.addBook(name, pages, category,type, books);
                 bError = false;
             } else{
                 System.out.println("Error! Insert a valid value!");
@@ -124,18 +124,17 @@ public class ScannerLibrary {
      * @param category
      */
 
-    private void addAlbum(String name, int pages, String category){
+    private void validateAlbum(String name, int pages, String category){
             boolean aError = true;
             do{
-                System.out.println("Enter the paper quality: premium, premium plus, deluxe, standard ");
+                System.out.println("Enter the paper quality: premium, deluxe, standard ");
                 String qualityPaper = sc.next();
                 if(qualityPaper.equalsIgnoreCase("premium")
-                    || qualityPaper.equalsIgnoreCase("premium plus")
                     || qualityPaper.equalsIgnoreCase("deluxe")
                     || qualityPaper.equalsIgnoreCase("standard")){
-                    Book album = new Album(name, pages, category, qualityPaper);
-                    System.out.println("Your album is in Library\n" + album);
-                    books.add(album);
+                    //add the album in the list
+                    //the method is called from Book class
+                    Book.addBook(name, pages, category, qualityPaper, books);
                     aError = false;
                 }else {
                     System.out.println("Error! Insert a valid value!");
@@ -148,32 +147,13 @@ public class ScannerLibrary {
     /**
      * method to remove a book from the library
      */
-
     private void removeBookFromList() {
         System.out.println("Enter the name: ");
         String name = sc.next();
         System.out.println("Enter the category: ");
         String  category = sc.next();
-        for (int i = 0; i < books.size(); i++) {
-           Book book = (Book) books.get(i);
-           if(name.equals(book.getName())&& category.equals(book.getCategory())){
-               books.remove(book);
-               System.out.println("Book has been deleted! ");
-           } else {
-               System.out.println("Insert a valid value!");
-           }
-       }
-    }
-
-    /**
-     * display all books from the library
-     */
-
-    private void displayAllBooks(){
-        System.out.println("Books in the library:");
-        for(Object book: books){
-            System.out.println(book);
-        }
+        //we call the method from the Book Class
+        Book.deleteBook(name, category, books);
     }
 
     /**

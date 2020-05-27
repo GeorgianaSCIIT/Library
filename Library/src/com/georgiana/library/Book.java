@@ -1,4 +1,5 @@
 package com.georgiana.library;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -53,4 +54,60 @@ public class Book {
     public int hashCode() {
         return Objects.hash(name, pages, category);
     }
+
+    /**
+     * Method to add a book in the library
+     * We call this method in the ScannerLibrary class
+     * @param name
+     * @param pages
+     * @param category
+     * @param value
+     * @param books
+     */
+
+    public static void addBook(String name, int pages, String category, String value, List books){
+        Book book = new Novel (name, pages, category, value);
+        books.add(book);
+        System.out.println("Your book is in Library!\n" + book);
+
+    }
+
+    /**
+     * Method to delete book from the library
+     * the method is used in the ScannerLibrary Class
+     * @param name
+     * @param category
+     * @param books
+     */
+    public static void deleteBook(String name, String category, List books){
+        for (int i = 0; i < books.size(); i++) {
+            Book book = (Book) books.get(i);
+            if (name.equals(book.getName()) && category.equals(book.getCategory())) {
+                books.remove(book);
+                System.out.println("Book has been deleted! ");
+                break;
+            } else {
+                System.out.println("Insert a valid value!");
+            }
+        }
+
+    }
+
+    /**
+     * display all books from the library
+     * the method is used in the ScannerLibrary class
+     */
+
+    public static void displayAllBooks(List books){
+        if(books.isEmpty()){
+            System.out.println("The library is empty");
+        }else {
+            System.out.println("Books in the library:");
+            for (Object book : books) {
+                System.out.println(book);
+            }
+        }
+        System.out.println();
+    }
+
 }
